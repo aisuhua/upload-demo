@@ -7,6 +7,7 @@
 以下是项目维护者一些相关描述：
 
 > lua-resty-upload is designed for streaming processing (that is, strictly non-buffered reading huge request bodies received in data chunks)
+
 > This library supports non-buffered uploading (or streaming uploading), which means it can handle infinite upload data streams in a single connection and with constant memory footprint, at least in theory.
 > [出处][3]
 
