@@ -23,8 +23,8 @@
 
 综合来讲，该 lua 扩展在处理上传上还是很不错的选择，其实我们在生产环境也正在使用。
 
-- [1]: http://openresty.org
-- [2]: https://github.com/openresty/lua-resty-upload
-- [3]: https://github.com/openresty/lua-resty-upload/issues/8
+[1]: http://openresty.org
+[2]: https://github.com/openresty/lua-resty-upload
+[3]: https://github.com/openresty/lua-resty-upload/issues/8
 
 
