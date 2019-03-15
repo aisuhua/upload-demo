@@ -1,4 +1,4 @@
-# Nginx 上传扩展使用示例
+# 基于 Nginx C 扩展 nginx-upload-module 的上传示例
 
 要运行该示例，需要先安装好 [nginx-upload-module][1] 扩展，可参考 [INSTALL](INSTALL.md) 完成安装。
 
