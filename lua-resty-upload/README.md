@@ -1,4 +1,4 @@
-# 基于 Lua + Nginx 的上传示例
+# 基于 OpenResty 的子模块 lua-resty-upload 实现的上传示例
 
 该示例演示了使用 [OpenResty][1] 的子模块 [lua-resty-upload][2] 实现文件上传的功能。
 
