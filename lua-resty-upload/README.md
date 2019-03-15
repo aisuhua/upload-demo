@@ -11,7 +11,7 @@
 > This library supports non-buffered uploading (or streaming uploading), which means it can handle infinite upload data streams in a single connection and with constant memory footprint, at least in theory.
 > [出处][3]
 
-实际上，如果要上传大的文件，实际上还是会受到 `client_max_body_size` 参数的限制，因此根据业务需求调整该参数大小即可。
+实际上，上传大的文件会受到 `client_max_body_size` 参数的限制，因此需要根据实际情况调整该参数大小。
 
 ## 示例说明
 
