@@ -2,7 +2,9 @@
 
 该示例演示了使用 [OpenResty][1] 的子模块 [lua-resty-upload][2] 实现文件上传的功能。
 
-该扩展能实现流式读取和处理上传的文件分块，因此理论上能支持上传无限大的文件。以下是项目维护者一些相关描述：
+它能实现流式读取和处理上传的文件分块，因此理论上能支持上传无限大的文件。
+
+以下是项目维护者一些相关描述：
 
 > lua-resty-upload is designed for streaming processing (that is, strictly non-buffered reading huge request bodies received in data chunks)
 > This library supports non-buffered uploading (or streaming uploading), which means it can handle infinite upload data streams in a single connection and with constant memory footprint, at least in theory.
