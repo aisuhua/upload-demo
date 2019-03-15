@@ -1,6 +1,6 @@
 # 安装 lua-resty-upload
 
-该项目基于 [OpenResty](http://openresty.org) 开发的一个功能模块，因此需要先安装好 OpenResty。
+[lua-resty-upload](https://github.com/openresty/lua-resty-upload) 是基于 [OpenResty](http://openresty.org) 开发的一个功能模块，因此需要先安装好 OpenResty。
 
 ## 安装 OpenResty 
 

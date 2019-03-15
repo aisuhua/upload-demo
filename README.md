@@ -8,3 +8,4 @@
 ## Refs
 
 - [OpenResty](http://openresty.org)
+- [OpenResty Reference](https://openresty-reference.readthedocs.io/en/latest/)
