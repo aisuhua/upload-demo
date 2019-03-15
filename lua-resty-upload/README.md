@@ -17,7 +17,7 @@
 
 请参考 [INSTALL](INSTALL.md) 先安装好 OpenResty 环境，它自带了一个 Nginx 版本。
 接着使用 nginx.conf 配置好环境，其中 upload.lua 是处理上传的主要脚本，它会一点点读取上传的内容，
-然后写到 uploads 目录，写入完毕后会计算文件的 sha1 和 file_size，最后会将这些信息传递给的业务处理脚本 upload.php。
+然后不停追加到文件的末尾，写入完成后会计算文件的 sha1 和 file_size，最后会将这些信息传递给的业务处理脚本 upload.php。
 
 自己测试过上传超过 5G 大小的文件其实很轻松，但是也注意到上传进程在处理上传时 CPU 负载也会飙得比较高。
 
