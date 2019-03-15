@@ -32,13 +32,13 @@ lua_package_path "/www/web/lua-resty-upload/lib/?.lua;;";
 server {
     listen 80;
     server_name upload.example.com;
-
-	location /test {
-		default_type text/html;
-		content_by_lua '
-        	ngx.say("<p>hello, world</p>")
+    
+    location /test {
+        default_type text/html;
+        content_by_lua '
+            ngx.say("<p>hello, world</p>")
         ';
-	}
+    }
 }
 ```
 
