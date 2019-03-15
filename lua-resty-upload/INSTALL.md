@@ -24,7 +24,7 @@ export PATH
 git clone git@github.com:openresty/lua-resty-upload.git
 ```
 
-添加 nginx 配置使用该 lua 脚本处理上传
+添加测试用的 Nginx 配置
 
 ```nginx
 lua_package_path "/www/web/lua-resty-upload/lib/?.lua;;";
