@@ -13,7 +13,7 @@
 
 ## 编辑成动态模块
 
-此时下载的 Nginx 版本要跟当前已经安装的版本一致，另外编译参数也要与此前一样，可以通过 `nginx -V` 查看，如有问题可[参考这里](https://github.com/fdintino/nginx-upload-module/issues/103)。
+此时下载的 Nginx 版本要跟当前已经安装的版本一致，另外编译该扩展的参数也要与安装 Nginx 时一致，可以通过 `nginx -V` 查看，如有问题可[参考这里](https://github.com/fdintino/nginx-upload-module/issues/103)。
 
 ```bash
 ./configure --add-dynamic-module=../nginx-upload-module-2.3.0

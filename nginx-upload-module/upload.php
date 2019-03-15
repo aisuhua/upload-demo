@@ -1,5 +1,6 @@
 <?php
 
+$uploads_dir = 'uploads';
 $prefix = "picture";
 $count = 2;
 
@@ -14,7 +15,7 @@ for ($i = 1; $i <= $count; $i++)
         $tmp_file = $_POST[$key . '_path'];
         $tmp_name = $_POST[$key . '_name'];
 
-        if(!copy($tmp_file, "uploads/{$tmp_name}"))
+        if(!copy($tmp_file, "{$uploads_dir}/{$tmp_name}"))
         {
             echo "failed to copy {$tmp_file}...\n";
             continue;
