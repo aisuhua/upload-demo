@@ -16,7 +16,7 @@ PATH=/usr/local/openresty/nginx/sbin:$PATH
 export PATH
 ```
 
-## 配置 lua-resty-upload
+## 安装 lua-resty-upload
 
 克隆项目代码
 
