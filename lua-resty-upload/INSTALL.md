@@ -21,6 +21,7 @@ export PATH
 克隆项目代码
 
 ```bash
+mkdir -p /www/web && cd /www/web
 git clone git@github.com:openresty/lua-resty-upload.git
 ```
 

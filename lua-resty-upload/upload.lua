@@ -38,7 +38,7 @@ while true do
     elseif typ == "part_end" then
         file:close()
         file = nil
-        local sha1_sum = sha1:final() -- Binary type
+        local sha1_sum = sha1:final()
         local sha1_hex = resty_str.to_hex(sha1_sum)
         sha1:reset()
 
