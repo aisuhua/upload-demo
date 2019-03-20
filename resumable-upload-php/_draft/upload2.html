@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Xhr Upload Demo</title>
+</head>
+<body>
+
+<input id="file-to-upload" type="file" name="picture">
+<button id="upload-button">Upload</button>
+
+<script>
+
+document.getElementById('upload-button').addEventListener('click', function() {
+
+    var offset = 0;
+    var chunkSize = 5;
+    var file = document.getElementById('file-to-upload').files[0];
+    var currentBlob = file.slice(offset, chunkSize);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'upload2.php', true);
+
+    xhr.addEventListener('load', function() {
+        console.log(xhr.responseText);
+    });
+
+    xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+    xhr.setRequestHeader('Content-Disposition', 'attachment; filename="' + encodeURIComponent('myfilename') + '"');
+    xhr.setRequestHeader('X-Session-ID', "1");
+
+    xhr.send(currentBlob);
+
+}, false);
+
+
+</script>
+
+</body>
+</html>

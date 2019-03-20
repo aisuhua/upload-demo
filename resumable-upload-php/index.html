@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example Chunked Uploader</title>
+</head>
+<body>
+
+<h1>Example Chunked Uploader</h1>
+
+<p>This is some example JavaScript code that uploads a file in chunks in the format expected by the nginx module.</p>
+
+<p>It is probably possible to simply copy the "doUpload" function into your code but not recommended (error handling isn't included, "alert" is used and the chunk size is hard coded).</p>
+
+<p>Please open browser's developer console to see detailed logs.</p>
+
+<input id="file-to-upload" type="file"><button id="upload-button">Upload</button>
+
+<div id="files">
+
+</div>
+
+
+<script>
+
+    function doUpload(url, extraParams, sessionID, file, progress, success) {
+        var chunkSize = 10;// this is first chunk size, which will be adaptively expanded depending on upload speed
+        var aborting = false;
+        var TO = null;
+        var lastChecksum = null;
+        var offset = 0;
+        var xhr;
+
+        var uploadNextChunk = function() {
+            TO = null;
+
+            var chunkStart = offset;
+            var chunkEnd = Math.min(offset + chunkSize, file.size);
+
+            var currentBlob = file.slice(chunkStart, chunkEnd);
+
+            if (!(currentBlob && currentBlob.size > 0)) {
+                alert('Chunk size is 0'); // Sometimes the browser reports an empty chunk when it shouldn't, could retry here
+                return;
+            }
+
+            xhr = new XMLHttpRequest();
+
+            if (chunkEnd === file.size) {
+                // Add extra URL params on the last chunk
+                // Important: URL parameters passing this doesn't work currently, pass parameters via some custom "X-" header instead
+                xhr.open('POST', url + (url.indexOf('?') > -1 ? '&' : '?') + extraParams, true);
+            } else {
+                xhr.open('POST', url, true);
+            }
+
+            // chunking gives usually ~2sec progress you can skip this handler
+            xhr.upload.addEventListener('progress', function(e) {
+                if (aborting) {
+                    return;
+                }
+
+                progress((chunkStart + e.loaded) / file.size);
+            });
+
+            xhr.addEventListener('load', function() {
+                if (aborting) {
+                    return;
+                }
+
+                if (xhr.readyState >= 4) {
+                    if (xhr.status === 200) {
+                        progress((chunkEnd + 1) / file.size);
+
+                        // done
+                        success(xhr.responseText);
+
+                    } else if (xhr.status === 201) {
+                        offset = chunkEnd;
+                        progress(offset / file.size);
+
+                        //the checksum of data uploaded so far
+                        lastChecksum = xhr.getResponseHeader('X-Checksum');
+                        TO = setTimeout(uploadNextChunk, 1); // attempt to avoid xhrs sticking around longer than needed
+                    } else {
+                        // error, restart chunk
+                        try {
+                            xhr.abort();
+                        } catch (err) {}
+
+                        alert('A server error occurred: ' + xhr.responseText); // Could retry at this stage depending on xhr.status
+                    }
+                }
+            });
+
+            xhr.addEventListener('error', function() {
+                if (aborting) {
+                    return;
+                }
+
+                // error, restart chunk
+
+                try {
+                    xhr.abort();
+                } catch (err) {}
+
+                alert('A server error occurred: ' + xhr.responseText); // Could retry at this stage depending on xhr.status
+            });
+
+            xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+            xhr.setRequestHeader('Content-Disposition', 'attachment; filename="' + encodeURIComponent(file.name) + '"');
+            xhr.setRequestHeader('X-Content-Range', 'bytes ' + chunkStart + '-' + chunkEnd + '/' + file.size);
+            xhr.setRequestHeader('X-Session-ID', sessionID);
+
+            xhr.send(currentBlob);
+        };
+
+        TO = setTimeout(uploadNextChunk, 1);
+
+        return {
+            abort: function() {
+                aborting = true;
+                if (TO !== null) {
+                    clearTimeout(TO);
+                    TO = null;
+                }
+                try {
+                    xhr.abort();
+                } catch (err) {}
+            },
+            pause: function() {
+                this.abort();
+                aborting = false;
+            },
+            resume: function() {
+                uploadNextChunk();
+            }
+        };
+    }
+
+
+    document.getElementById('upload-button').addEventListener('click', function() {
+
+        var file = document.getElementById('file-to-upload').files[0];
+
+        //generate random long number for SessionID
+        var sessionID = Math.round(Math.pow(10,17)*Math.random());
+
+        doUpload('upload.php', 'test=1', sessionID, file, function(progress) {
+
+            console.log('Total file progress is ' + Math.floor(progress * 100) + '%');
+
+        }, function(responseText) {
+
+            console.log(responseText);
+
+        });
+
+    }, false);
+
+</script>
+
+</body>
+</html>
