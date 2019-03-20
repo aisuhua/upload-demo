@@ -20,3 +20,4 @@
 
 - [OpenResty](http://openresty.org)
 - [OpenResty Reference](https://openresty-reference.readthedocs.io/en/latest/)
+- [nginx 1.5+ file upload — best practices](https://stackoverflow.com/questions/22461341/nginx-1-5-file-upload-best-practices)

@@ -82,3 +82,7 @@ server {
 
 [1]: https://github.com/fdintino/nginx-upload-module
 [2]: https://github.com/fdintino/nginx-upload-module/blob/master/upload-protocol.md
+
+## 参考文章
+
+- [nginx upload module的使用](https://www.cnblogs.com/lidabo/p/4169739.html)
