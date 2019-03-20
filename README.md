@@ -14,7 +14,7 @@
 
 - 分片上传示例（支持断点续传）；
 
-可以参考 [nginx-upload-module](https://github.com/fdintino/nginx-upload-module/blob/master/upload-protocol.md)、[tusd](https://tus.io/protocols/resumable-upload.html)。
+可以参考 [nginx-upload-module](https://github.com/fdintino/nginx-upload-module/blob/master/upload-protocol.md)、[tusd](https://tus.io/protocols/resumable-upload.html)
 
 ## Repositories
 
