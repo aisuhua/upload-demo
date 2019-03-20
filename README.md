@@ -15,6 +15,10 @@
 - [nginx-upload-module](https://github.com/fdintino/nginx-upload-module)
 - [lua-resty-upload](https://github.com/openresty/lua-resty-upload)
 - [nginx-big-upload](https://github.com/pgaertig/nginx-big-upload)
+- [fileUploader](https://github.com/speich/fileUploader)
+- [resumable.js](https://github.com/23/resumable.js)
+- [tusd](https://github.com/tus/tusd)
+- [jQuery-File-Upload](https://github.com/blueimp/jQuery-File-Upload)
 
 ## References
 
