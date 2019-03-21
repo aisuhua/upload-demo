@@ -6,14 +6,12 @@
 <body>
 
 <input id="file-to-upload" type="file">
-<button id="upload-button">Upload</button>
-<button id="pause-button">Pause</button>
-<button id="resume-button">Resume</button>
+<button id="toggle-button">start upload</button>
 
 <script>
-    var uploadBtn = document.getElementById('upload-button');
-    var pauseBtn = document.getElementById('pause-button');
-    var resumeBtn = document.getElementById('resume-button');
+    var toggleBtn = document.getElementById('toggle-button');
+    var uploader = null;
+    var uploadIsRunning = false;
 
     var progress = function(progress) {
         console.log('Total file progress is ' + Math.floor(progress * 100) + '%');
@@ -29,6 +27,7 @@
         var extraParams = "test=1";
         var xhr;
         var aborting = false;
+
         var TO = null;
 
         var uploadNextChunk = function() {
@@ -41,7 +40,7 @@
 
             if (chunkEnd === file.size - 1) {
                 // The last chunk
-                xhr.open('POST', url + extraParams, true);
+                xhr.open('POST', url + '?' + extraParams, true);
             } else {
                 xhr.open('POST', url, true);
             }
@@ -65,13 +64,13 @@
 
                         // Done
                         success(xhr.responseText);
-
                     } else if (xhr.status === 201) {
                         offset = chunkEnd + 1;
                         progress(offset / file.size);
 
                         // Upload next chunk，这里使用 timeout 仅仅为了测试
-                        TO = setTimeout(uploadNextChunk, 1000);
+                        // TO = setTimeout(uploadNextChunk, 1000);
+                        uploadNextChunk();
                     } else {
                         try {
                             xhr.abort();
@@ -103,48 +102,39 @@
                     xhr.abort();
                 } catch (err) {}
             },
-            pause: function() {
-                this.abort();
-                aborting = false;
-            },
             resume: function() {
-                // 每次重启后
+                aborting = false;
                 uploadNextChunk();
             }
         };
     }
 
-    var uploader = null;
+    // 上传、暂停和恢复处理
+    toggleBtn.addEventListener('click', function() {
+        if (uploader) {
+            if (uploadIsRunning) {
+                uploader.abort();
+                toggleBtn.textContent = "resume upload";
+                uploadIsRunning = false;
+            } else {
+                uploader.resume();
+                toggleBtn.textContent = "pause upload";
+                uploadIsRunning = true;
+            }
+        } else {
+            var file = document.getElementById('file-to-upload').files[0];
+            if (!file) {
+                return false;
+            }
 
-    // 上传文件
-    uploadBtn.addEventListener('click', function() {
-        var file = document.getElementById('file-to-upload').files[0];
-        if (!file) {
-            return false;
+            var sessionID = Math.round(Math.pow(10,17)*Math.random()) + '';
+            uploader = doUpload('/upload', sessionID, file);
+
+            toggleBtn.textContent = "pause upload";
+            uploadIsRunning = true;
         }
-
-        var sessionID = Math.round(Math.pow(10,17)*Math.random()) + '';
-
-        uploader = doUpload('/upload', sessionID, file);
     });
 
-    // 恢复上传
-    resumeBtn.addEventListener('click', function() {
-        if (!uploader) {
-            return false;
-        }
-
-        uploader.resume();
-    });
-
-    // 暂停上传
-    pauseBtn.addEventListener('click', function() {
-        if (!uploader) {
-            return false;
-        }
-
-        uploader.pause();
-    });
 
 </script>
 
