@@ -1,0 +1,35 @@
+table {
+    width: 90%;
+    border: 1px solid #ccc;
+    color: #888;
+    margin-top: 20px;
+    padding: 10px 0px 10px 0px;
+}
+tr {
+    height: 30px;
+    border-bottom: 1px solid #ccc;
+}
+td.filename {
+    width: 25%;
+}
+.bar {
+    background-color: green;
+    display: block;
+    text-align: center;
+}
+td.progress {
+    width: 20%;
+    border: 1px solid #ccc;
+    padding: 0px;
+    color: #fff;
+    font-weight: bold;
+}
+td.start {
+    width: 10%;
+}
+td.cancel {
+    width: 30%;
+}
+th {
+    text-align: left;
+}
