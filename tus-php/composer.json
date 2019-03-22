@@ -1,0 +1,5 @@
+{
+    "require": {
+        "ankitpokhrel/tus-php": "^1.0"
+    }
+}
