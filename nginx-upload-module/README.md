@@ -86,3 +86,4 @@ server {
 ## 参考文章
 
 - [nginx upload module的使用](https://www.cnblogs.com/lidabo/p/4169739.html)
+- [NGINX as a file server](https://www.yanxurui.cc/posts/server/2017-03-21-NGINX-as-a-file-server/)
